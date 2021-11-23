@@ -1,0 +1,2 @@
+# logbot
+My discord bot.
