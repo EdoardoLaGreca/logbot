@@ -1,11 +1,11 @@
 # Build all
 all: deps
 	@ echo "Building..."
-	go build .
+	go build ./src
 
 run: deps
 	@ echo "Running..."
-	go run .
+	- go run ./src
 
 # Get repo dependencies
 deps:
