@@ -14,5 +14,8 @@
 # Discord token
 DISCORD_TOKEN
 
+# Binaries directory
+/bin
+
 # Dependency directories (remove the comment below to include it)
 # vendor/
