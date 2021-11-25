@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"log"
+	"strings"
 
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/session"
@@ -53,14 +54,17 @@ func main() {
 	log.Println("Session created")
 
 	s.AddHandler(func(c *gateway.MessageCreateEvent) {
-		command := strings.TrimPrefix(c.Content)
+		command := strings.TrimPrefix(c.Content, prefix)
 
 		if command == c.Content {
 			// It the content remains unchanged, there was no prefix
 			return
 		}
 
+		// Split command in command + arguments
+		cmdargs := strings.Split(command, " ")
 
+		CmdRouter(cmdargs[0], cmdargs[1:])
 		//log.Println(c.Author.Username, "sent", c.Content)
 	})
 

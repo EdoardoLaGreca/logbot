@@ -11,11 +11,11 @@ import (
 // If too many arguments are provided, the superfluous will be ignored (e.g. if
 // a command accepts 1 argument and 2 are provided, the second will be
 // ignored). If not enough arguments are provided, it returns an error.
-func CmdRouter(cmd string, args string[]) error {
+func CmdRouter(cmd string, args []string) error {
 	// Number of arguments for each command
 	nargs := map[string]int {
 		"getrpost": 1,
-	}
+	};
 
 	if len(args) < nargs[cmd] {
 		return fmt.Errorf("Not enough arguments for command `" + cmd + "'")
@@ -25,7 +25,7 @@ func CmdRouter(cmd string, args string[]) error {
 	// Route the commands
 	switch (cmd) {
 	case "getrpost":
-		getRedditPost(args[0], args[1])
+		getRedditPost(args[0])
 	default:
 		return fmt.Errorf("Unknown command `" + cmd + "'")
 	}
@@ -47,7 +47,7 @@ func getRedditPost(sub string) (string, error) {
 	}
 
 	if len(posts) > 0 {
-		return posts[0].URL
+		return posts[0].URL, nil
 	} else {
 		return "", fmt.Errorf("No new posts")
 	}
