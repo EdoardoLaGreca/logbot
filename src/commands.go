@@ -11,7 +11,7 @@ import (
 // If too many arguments are provided, the superfluous will be ignored (e.g. if
 // a command accepts 1 argument and 2 are provided, the second will be
 // ignored). If not enough arguments are provided, it returns an error.
-func cmdRouter(cmd string, args string[]) error {
+func CmdRouter(cmd string, args string[]) error {
 	// Number of arguments for each command
 	nargs := map[string]int {
 		"getrpost": 1,
