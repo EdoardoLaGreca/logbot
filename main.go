@@ -4,7 +4,6 @@ import (
 	"context"
 	"os"
 	"log"
-	_ "strings"
 
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/session"
@@ -50,6 +49,7 @@ func main() {
 		log.Println(c.Author.Username, "sent", c.Content)
 	})
 
+	log.Println("Bot has successfully started, use CTRL-C to stop it")
 	// Block forever
 	select {}
 }
