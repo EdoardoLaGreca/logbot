@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 	"log"
-	"strings"
+	_ "strings"
 
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/session"
@@ -12,11 +12,13 @@ import (
 
 // Read token from filesystem
 func readToken() (string, error) {
-	token, err := os.ReadFile("DISCORD_TOKEN")
+	tokenBytes, err := os.ReadFile("DISCORD_TOKEN")
 
 	if err == nil {
-		// Convert to string and remove spaces (such as EOF)
-		return strings.TrimSpace(string(token)), nil
+		token := string(tokenBytes)
+
+		// Remove last character (EOF) from token
+		return token[:len(token)-1], nil
 	}
 
 	return "", err
