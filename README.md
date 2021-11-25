@@ -10,6 +10,8 @@ Please note that this repo has nothing to do with logging. It's just a Discord b
 
 You can do pretty much everything using make.
 
+**Remember that, before running, there must be a file named `DISCORD_TOKEN` in the same directory where you run the bot. That file must contain YOUR bot's discord token and nothing else.**
+
 To compile run this:
 
 ```
