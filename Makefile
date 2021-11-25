@@ -1,5 +1,8 @@
 # Build all
-all: deps
+all: build
+
+
+build: deps
 	@ echo "Building..."
 	go build ./src
 
