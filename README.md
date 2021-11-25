@@ -15,7 +15,7 @@ You can do pretty much everything using make.
 To compile run this:
 
 ```
-make
+make build
 ```
 
 To run without compiling run this:
