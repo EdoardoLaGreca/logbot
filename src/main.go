@@ -24,6 +24,13 @@ func readToken() (string, error) {
 }
 
 func main() {
+	// The prefix is a string of one or more characters that is used to "call"
+	// the bot, which means that the bot will interpret all the strings that
+	// start with that prefix as commands.
+	// Discord will replace the needs of prefixes with a common prefix "/" so
+	// this is just a temporary solution.
+	prefix := "!"
+
 	token, err := readToken()
 	if err != nil || token == "" {
 		log.Fatalln("Cannot read file `DISCORD_TOKEN' or token is empty")
@@ -46,7 +53,15 @@ func main() {
 	log.Println("Session created")
 
 	s.AddHandler(func(c *gateway.MessageCreateEvent) {
-		log.Println(c.Author.Username, "sent", c.Content)
+		command := strings.TrimPrefix(c.Content)
+
+		if command == c.Content {
+			// It the content remains unchanged, there was no prefix
+			return
+		}
+
+
+		//log.Println(c.Author.Username, "sent", c.Content)
 	})
 
 	log.Println("Bot has successfully started, use CTRL-C to stop it")
