@@ -4,14 +4,18 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/diamondburned/arikawa/v3/session"
+	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/vartanbeno/go-reddit/v2/reddit"
 )
 
-// Routes the commands to their routines, returns an error if there is one.
+// Routes the commands to their routines, handles the results and returns an
+// error if there is one.
 // If too many arguments are provided, the superfluous will be ignored (e.g. if
 // a command accepts 1 argument and 2 are provided, the second will be
 // ignored). If not enough arguments are provided, it returns an error.
-func CmdRouter(cmd string, args []string) error {
+func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, args []string) error {
+
 	// Number of arguments for each command
 	nargs := map[string]int {
 		"getrpost": 1,
@@ -21,11 +25,15 @@ func CmdRouter(cmd string, args []string) error {
 		return fmt.Errorf("Not enough arguments for command `" + cmd + "'")
 	}
 
-
-	// Route the commands
+	// Route the commands and handle their result
 	switch (cmd) {
 	case "getrpost":
-		getRedditPost(args[0])
+		url, err := getRedditPost(args[0])
+		if err != nil {
+			SendMessage(s, c.ChannelID, err.Error())
+		} else {
+			SendMessage(s, c.ChannelID, url)
+		}
 	default:
 		return fmt.Errorf("Unknown command `" + cmd + "'")
 	}

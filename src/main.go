@@ -6,9 +6,19 @@ import (
 	"log"
 	"strings"
 
+	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/session"
 )
+
+// Wrapper for api.SendMessage
+func SendMessage(c *session.Session, cid discord.ChannelID, content string) {
+	_, err := c.SendMessage(cid, content)
+
+	if err != nil {
+		log.Println("Unable to send message, check below for details.\n", err)
+	}
+}
 
 // Read token from filesystem
 func readToken() (string, error) {
@@ -40,8 +50,7 @@ func main() {
 	log.Println("File `DISCORD_TOKEN' found")
 
 	// Create session with intents
-	s, err := session.NewWithIntents(token, gateway.IntentGuildMessages,
-		gateway.IntentGuilds)
+	s, err := session.NewWithIntents("Bot " + token, gateway.IntentGuildMessages, gateway.IntentGuilds)
 	if err != nil {
 		log.Fatalln("Cannot create a session, check the error below.\n", err)
 	}
@@ -64,7 +73,12 @@ func main() {
 		// Split command in command + arguments
 		cmdargs := strings.Split(command, " ")
 
-		CmdRouter(cmdargs[0], cmdargs[1:])
+		s.SendMessage(c.ChannelID, "LOG TRIGGERED.\nReceived command: \"" + command + "\"")
+		err := HandleCmd(s, c, cmdargs[0], cmdargs[1:])
+
+		if err != nil {
+			log.Println("An error occurred while trying to execute the " + "command `" + command + "', check below for details.\n", err)
+		}
 		//log.Println(c.Author.Username, "sent", c.Content)
 	})
 
