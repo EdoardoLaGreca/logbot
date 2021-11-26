@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"math/rand"
 
 	"github.com/diamondburned/arikawa/v3/session"
 	"github.com/diamondburned/arikawa/v3/gateway"
@@ -49,13 +50,15 @@ func getRedditPost(sub string) (string, error) {
 	client := reddit.DefaultClient()
 
 	// Get new posts
-	posts, _, err := client.Subreddit.NewPosts(context.Background(), sub, nil)
+	posts, _, err := client.Subreddit.RisingPosts(context.Background(), sub, nil)
 	if err != nil {
 		return "", err
 	}
 
+	postIdx := rand.Intn(len(posts))
+
 	if len(posts) > 0 {
-		return posts[0].URL, nil
+		return "https://reddit.com" + posts[postIdx].Permalink, nil
 	} else {
 		return "", fmt.Errorf("No new posts")
 	}
