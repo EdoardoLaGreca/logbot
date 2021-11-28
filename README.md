@@ -5,7 +5,7 @@ Please note that this repo has nothing to do with logging. It's just a Discord b
 ## Roadmap
 
  - [x] Working draft
- - [x] `getrpost` command to get the one of the rising posts from a subreddit
+ - [x] `grp` command to get the one of the rising posts from a subreddit
 
 ## Compile & run
 
