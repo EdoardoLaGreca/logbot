@@ -17,3 +17,6 @@ deps:
 	go version
 	go get -d ./... 
 
+clean:
+	rm -rf bin
+
