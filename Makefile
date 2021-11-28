@@ -4,7 +4,7 @@ all: build
 
 build: deps
 	@ echo "Building..."
-	go build ./src
+	go build -o bin/logbot ./src
 
 run: deps
 	@ echo "Running..."
