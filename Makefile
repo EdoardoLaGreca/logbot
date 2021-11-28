@@ -14,5 +14,6 @@ run: deps
 deps:
 	@ echo "Checking dependencies..."
 	which go	
+	go version
 	go get -d ./... 
 
