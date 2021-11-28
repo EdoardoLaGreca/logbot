@@ -64,7 +64,3 @@ func getRedditPost(sub string) (string, error) {
 	}
 }
 
-// Get an image from Google based on a keywork or random.
-// If the keywork is "random", take a random image.
-func getImage() {
-}
