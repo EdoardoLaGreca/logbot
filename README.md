@@ -6,13 +6,18 @@ Please note that this repo has nothing to do with logging. It's just a Discord b
 
  - [x] Working draft
  - [x] `getrpost` command to get the one of the rising posts from a subreddit
- - [ ] `getimg` command to get the first image in the results of a search, or a random image
 
 ## Compile & run
 
 You can do pretty much everything using make.
 
 **Remember that, before running, there must be a file named `DISCORD_TOKEN` in the same directory where you run the bot. That file must contain YOUR bot's discord token and nothing else.**
+
+Dependencies:
+
+ - [Golang](https://go.dev/)
+ - `make`
+ - external Golang libraries which will be installed automatically
 
 To compile run this:
 
