@@ -19,7 +19,7 @@ func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, ar
 
 	// Number of arguments for each command
 	nargs := map[string]int {
-		"getrpost": 1,
+		"grp": 1,
 	};
 
 	if len(args) < nargs[cmd] {
@@ -28,7 +28,7 @@ func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, ar
 
 	// Route the commands and handle their result
 	switch (cmd) {
-	case "getrpost":
+	case "grp":
 		url, err := getRedditPost(args[0])
 		if err != nil {
 			SendMessage(s, c.ChannelID, err.Error())
