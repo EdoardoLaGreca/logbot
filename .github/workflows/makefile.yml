@@ -14,5 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Update Golang
+      run: sudo apt upgrade golang
+
     - name: Build
       run: make build
