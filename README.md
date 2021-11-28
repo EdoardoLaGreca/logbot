@@ -6,6 +6,7 @@ Please note that this repo has nothing to do with logging. It's just a Discord b
 
  - [x] Working draft
  - [x] `grp` command to get the one of the rising posts from a subreddit
+ - [x] `help` command
 
 ## Compile & run
 
