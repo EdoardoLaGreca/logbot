@@ -17,8 +17,9 @@ import (
 // ignored). If not enough arguments are provided, it returns an error.
 func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, args []string) error {
 
-	// Number of arguments for each command
+	// Number of arguments required for each command
 	nargs := map[string]int {
+		"help": 0,
 		"grp": 1,
 	};
 
@@ -28,6 +29,9 @@ func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, ar
 
 	// Route the commands and handle their result
 	switch (cmd) {
+	case "help":
+		helpPage := help()
+		SendMessage(s, c.ChannelID, helpPage)
 	case "grp":
 		url, err := getRedditPost(args[0])
 		if err != nil {
@@ -40,6 +44,46 @@ func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, ar
 	}
 
 	return nil
+}
+
+func help() string {
+	helpPage := "```"
+
+	// Header
+	helpPage += "HELP PAGE\n"
+
+	// Array of commands in form of [name, desc, usage]
+	availCmds := [...][3]string {
+		{ "help", "Show this page", "help" },
+		{ "grp", "Get reddit post", "grp <subreddit>" },
+	}
+
+	// Size in characters of the longest command name
+	longestCmd := 0
+
+	// Get the longest command name
+	for _, cmd := range availCmds {
+		if len(cmd[0]) > longestCmd {
+			longestCmd = len(cmd[0])
+		}
+	}
+
+	// Add command info to helpPage for each command
+	for _, cmd := range availCmds {
+		helpPage += " " + cmd[0]
+
+		// Add spacing
+		lenDiff := longestCmd - len(cmd[0]) + 2
+		for i := 0; i < lenDiff; i++ {
+			helpPage += " "
+		}
+
+		helpPage += cmd[1] + "\n   Usage: " + cmd[2] + "\n\n"
+	}
+
+	helpPage += "```"
+
+	return helpPage
 }
 
 // Get a Reddit post
