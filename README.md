@@ -20,19 +20,19 @@ Dependencies:
  - `make`
  - external Golang libraries which will be installed automatically
 
-To compile run this:
+To compile:
 
 ```
 make build
 ```
 
-To run without compiling run this:
+To run without compiling:
 
 ```
 make run
 ```
 
-To get the dependencies (which is done automagically before compiling or running, so you shouldn't really use this):
+To get the dependencies (which is done automagically before compiling or running, so you really don't want to use this):
 
 ```
 make deps
