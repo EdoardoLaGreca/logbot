@@ -16,7 +16,7 @@ If the build fails, it's the fault of GitHub CI whose version of Go is out of da
 
 You can do pretty much everything using make.
 
-**Remember that, before running, there must be a file named `DISCORD_TOKEN` in the same directory where you run the bot. That file must contain YOUR bot's discord token and nothing else.**
+**Remember that, before running, there must be a file named `DISCORD_TOKEN` in the working directory. That file must contain YOUR bot's discord token and nothing else.**
 
 Dependencies:
 
