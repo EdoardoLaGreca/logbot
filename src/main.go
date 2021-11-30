@@ -36,11 +36,11 @@ func readToken() (string, error) {
 
 func main() {
 	// The prefix is a string of one or more characters that is used to "call"
-	// the bot, which means that the bot will interpret all the strings that
+	// the bot, which means that the bot will interpret all the messages that
 	// start with that prefix as commands.
 	// Discord will replace the needs of prefixes with a common prefix "/" so
 	// this is just a temporary solution.
-	prefix := "!"
+	prefix := "§"
 
 	token, err := readToken()
 	if err != nil || token == "" {
