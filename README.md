@@ -9,7 +9,7 @@ If the build fails, it's probably the fault of GitHub CI whose version of Go is 
 ## Roadmap
 
  - [x] Working draft
- - [x] `grp` command to get the one of the rising posts from a subreddit
+ - [x] `grp` command to get one of the rising posts from a subreddit
  - [x] `help` command
 
 ## Compile & run
