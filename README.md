@@ -37,10 +37,16 @@ To run without compiling:
 make run
 ```
 
-To get the dependencies (which is done automagically before compiling or running, so you really don't want to use this):
+To update to the latest commit (this will just update the tracked repo files, it won't build an updated version):
 
 ```
-make deps
+make update
+```
+
+To clean the repo from files generated through the Makefile:
+
+```
+make clean
 ```
 
 ## License
