@@ -22,6 +22,7 @@ Dependencies:
 
  - [Golang](https://go.dev/)
  - `make`
+ - `git` (to update the repo)
  - external Golang libraries which will be installed automatically
 
 To compile:
