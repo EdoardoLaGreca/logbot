@@ -13,9 +13,9 @@ run: deps
 clean:
 	rm -rf bin
 
-update: update-repo build
-
-update-no-build: update-repo
+update:
+	@ echo "Updating repository..."
+	git pull
 
 # DO NOT CALL DIRECTLY THE TARGETS BELOW, they exist just to be called from other targets
 
@@ -23,8 +23,4 @@ deps:
 	@ echo "Checking dependencies..."
 	which go	
 	go version
-	go get -d ./...
-
-update-repo:
-	@ echo "Updating repository..."
-	git pull
+	go get -d ./...	
