@@ -4,7 +4,7 @@ Please note that this repo has nothing to do with logging. It's just a Discord b
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/EdoardoLaGreca/logbot/Makefile%20CI)
 
-If the build fails, it's the fault of GitHub CI whose version of Go is out of date.
+If the build fails, it's probably the fault of GitHub CI whose version of Go is out of date.
 
 ## Roadmap
 
