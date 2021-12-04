@@ -10,6 +10,23 @@ import (
 	"github.com/vartanbeno/go-reddit/v2/reddit"
 )
 
+// A struct for commands
+// It contains the name of a command, its description and the number of
+// arguments that it requires to be executed
+type Command struct {
+	name	string
+	desc	string
+	usage	string
+	reqArgs	uint
+}
+
+// Available commands
+commands := map[string]Command {
+	"help": Command{ "help", "Show a help page", "help", 0 },
+	"grp": Command{ "grp", "Get Reddit post, "grp <subreddit>", 1 },
+}
+
+
 // Routes the commands to their routines, handles the results and returns an
 // error if there is one.
 // If too many arguments are provided, the superfluous will be ignored (e.g. if
@@ -17,13 +34,7 @@ import (
 // ignored). If not enough arguments are provided, it returns an error.
 func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, args []string) error {
 
-	// Number of arguments required for each command
-	nargs := map[string]int {
-		"help": 0,
-		"grp": 1,
-	};
-
-	if len(args) < nargs[cmd] {
+	if len(args) < commands[cmd].reqArgs {
 		return fmt.Errorf("Not enough arguments for command `" + cmd + "'")
 	}
 
@@ -52,25 +63,19 @@ func help() string {
 	// Header
 	helpPage += "HELP PAGE\n"
 
-	// Array of commands in form of [name, desc, usage]
-	availCmds := [...][3]string {
-		{ "help", "Show this page", "help" },
-		{ "grp", "Get reddit post", "grp <subreddit>" },
-	}
-
-	// Size in characters of the longest command name
+	// Size in characters of the longest command name, used for formatting
 	longestCmd := 0
 
 	// Get the longest command name
-	for _, cmd := range availCmds {
-		if len(cmd[0]) > longestCmd {
+	for _, cmd := range commands {
+		if len(cmd.name) > longestCmd {
 			longestCmd = len(cmd[0])
 		}
 	}
 
 	// Add command info to helpPage for each command
 	for _, cmd := range availCmds {
-		helpPage += " " + cmd[0]
+		helpPage += " " + cmd.name
 
 		// Add spacing
 		lenDiff := longestCmd - len(cmd[0]) + 2
@@ -78,7 +83,7 @@ func help() string {
 			helpPage += " "
 		}
 
-		helpPage += cmd[1] + "\n   Usage: " + cmd[2] + "\n\n"
+		helpPage += cmd.desc + "\n   Usage: " + cmd.usage + "\n\n"
 	}
 
 	helpPage += "```"
