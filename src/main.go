@@ -12,7 +12,7 @@ import (
 )
 
 // Wrapper for api.SendMessage
-func SendMessage(c *session.Session, cid discord.ChannelID, content string) {
+func sendMessage(c *session.Session, cid discord.ChannelID, content string) {
 	_, err := c.SendMessage(cid, content)
 
 	if err != nil {
