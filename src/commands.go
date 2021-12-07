@@ -21,9 +21,9 @@ type Command struct {
 }
 
 // Available commands
-commands := map[string]Command {
+var commands = map[string]Command {
 	"help": Command{ "help", "Show a help page", "help", 0 },
-	"grp": Command{ "grp", "Get Reddit post, "grp <subreddit>", 1 },
+	"grp": Command{ "grp", "Get Reddit post", "grp <subreddit>", 1 },
 }
 
 
@@ -34,7 +34,7 @@ commands := map[string]Command {
 // ignored). If not enough arguments are provided, it returns an error.
 func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, args []string) error {
 
-	if len(args) < commands[cmd].reqArgs {
+	if len(args) < int(commands[cmd].reqArgs) {
 		return fmt.Errorf("Not enough arguments for command `" + cmd + "'")
 	}
 
@@ -42,13 +42,13 @@ func HandleCmd(s *session.Session, c *gateway.MessageCreateEvent, cmd string, ar
 	switch (cmd) {
 	case "help":
 		helpPage := help()
-		SendMessage(s, c.ChannelID, helpPage)
+		sendMessage(s, c.ChannelID, helpPage)
 	case "grp":
 		url, err := getRedditPost(args[0])
 		if err != nil {
-			SendMessage(s, c.ChannelID, err.Error())
+			sendMessage(s, c.ChannelID, err.Error())
 		} else {
-			SendMessage(s, c.ChannelID, url)
+			sendMessage(s, c.ChannelID, url)
 		}
 	default:
 		return fmt.Errorf("Unknown command `" + cmd + "'")
@@ -69,16 +69,16 @@ func help() string {
 	// Get the longest command name
 	for _, cmd := range commands {
 		if len(cmd.name) > longestCmd {
-			longestCmd = len(cmd[0])
+			longestCmd = len(cmd.name)
 		}
 	}
 
 	// Add command info to helpPage for each command
-	for _, cmd := range availCmds {
+	for _, cmd := range commands {
 		helpPage += " " + cmd.name
 
 		// Add spacing
-		lenDiff := longestCmd - len(cmd[0]) + 2
+		lenDiff := longestCmd - len(cmd.name) + 2
 		for i := 0; i < lenDiff; i++ {
 			helpPage += " "
 		}
