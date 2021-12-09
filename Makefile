@@ -4,11 +4,11 @@ all: build
 
 build: deps
 	@ echo "Building..."
-	go build -o bin/logbot ./src
+	go build -o bin/logbot .
 
 run: deps
 	@ echo "Running..."
-	- go run ./src
+	- go run .
 
 clean:
 	rm -rf bin
